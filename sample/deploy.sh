@@ -4,7 +4,7 @@ sudo npm install -g pm2
 
 pm2 stop sample
 
-cd Devops60-/sample 
+cd sample/ 
 
 npm install 
 echo $PRIVATE_KEY > privatekey.pem

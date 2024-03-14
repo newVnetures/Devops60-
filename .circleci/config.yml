@@ -4,18 +4,14 @@ workflows:
   version: 2
   build:
     jobs:
-      - build:
-          filters:
-            branches:
-              only:
-                - main
+      - build
       - deploy:
+          requires:
+            - build
           filters:
             branches:
               only:
                 - main
-            requires:
-              - build
   
 jobs:
   build:

@@ -2,7 +2,7 @@ sudo apt update && sudo apt install nodjs npm
 
 sudo npm install -g pm2
 
-pm2 stop all
+pm2 stop sample
 
 cd Devops60-/sample 
 

@@ -40,5 +40,5 @@ jobs:
     steps:
       - run: 
           name: deploy-application
-          command: ssh -0 StrictHostKeyChecking=no $EC2_USERNAME_PUBLIC_DNS "rm rf Devops60-/; git clone https://github.com/newVnetures/Devops60-.git; source  Devops60-/deploy.sh"
+          command: ssh -0 StrictHostKeyChecking=no $EC2_USERNAME_PUBLIC_DNS "rm rf devops60-/; git clone https://github.com/newVnetures/Devops60-.git; source  devops60-/deploy.sh"
 

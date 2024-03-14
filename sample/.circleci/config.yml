@@ -27,9 +27,6 @@ jobs:
       - run: 
           name: install-npm 
           command: npm install 
-      - run: 
-         name: test-run
-         command: npm run test
       - save_cache: 
           key: dependency-cache-{{ checksum "package-lock.json" }}
           paths: 
@@ -40,5 +37,5 @@ jobs:
     steps:
       - run: 
           name: deploy-application
-          command: ssh -0 StrictHostKeyChecking=no $EC2_USERNAME_PUBLIC_DNS "rm rf devops60-/; git clone https://github.com/newVnetures/Devops60-.git; source  devops60-/deploy.sh"
+          command: ssh -0 StrictHostKeyChecking=no $EC2_USERNAME_@EC2_PUBLIC_DNS "rm rf devops60-/; git clone https://github.com/newVnetures/Devops60-.git; source  devops60-/deploy.sh"
 

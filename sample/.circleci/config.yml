@@ -1,46 +1,25 @@
 version: 2.1
 
-workflows:
-  version: 2
-  build:
-    jobs:
-      - build:
-          filters:
-            branches:
-              only:
-                - main
-      - deploy:
-          filters:
-            branches:
-              only:
-                - main
-            requires:
-              - build
-  
 jobs:
   build:
     working_directory: ~/circleci-python
     docker:
-      - image: "circleci/node:10.16.3"
+      - image: "circleci/python:3.6.4"
     steps:
       - checkout
-      - run: 
-         name: update-npm
-         command: 'sudo npm install -g npm@5'
-      - restore_cache:
-         key: dependency-cache-{{ checksum "package-lock.json" }}
-      - run: 
-          name: install-npm 
-          command: npm install 
-      - save_cache: 
-          key: dependency-cache-{{ checksum "package-lock.json" }}
-          paths: 
-            - ./node_modules
-  deploy:
+      - run: python3 main.py
+  test:
+    working_directory: ~/circleci-python
     docker:
-      - image: circle/node:10.16.3
+      - image: "circleci/python:3.6.4"
     steps:
-      - run: 
-          name: deploy-application
-          command: ssh -0 StrictHostKeyChecking=no $EC2_USERNAME_@EC2_PUBLIC_DNS "rm rf devops60-/; git clone https://github.com/newVnetures/Devops60-.git; source  devops60-/deploy.sh"
+      -checkout
+      - run: python3 main-test.py
 
+workflows:
+  build_and_test:
+    jobs:
+      - build
+      - test:
+          requires:
+            - build
